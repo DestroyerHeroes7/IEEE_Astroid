@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 4060456728476980662}
   - component: {fileID: 2768032575028996148}
   - component: {fileID: 1760338875861282854}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Asteroid
-  m_TagString: Untagged
+  m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -136,4 +136,5 @@ MonoBehaviour:
   rigidbody: {fileID: 4060456728476980662}
   moveSpeed: 2
   deadDelay: 6
-  hp: 30
+  hp: 10
+  reward: 0
