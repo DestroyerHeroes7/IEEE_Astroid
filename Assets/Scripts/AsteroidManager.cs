@@ -9,9 +9,27 @@ public class AsteroidManager : MonoBehaviour
     public GameObject asteroidPrefab;
     public Transform spawnPoint;
     public Global.RangeFloat asteroidSpawnRate = new Global.RangeFloat(1.5f, 2);
+    public float rateTimer;
     private void Awake()
     {
         Instance = this;
+    }
+    private void Update()
+    {
+        rateTimer += Time.deltaTime;
+        if(rateTimer >= 10f)
+        {
+            UpdateAsteroidSpawnRate();
+            rateTimer = 0;
+        }
+    }
+    private void UpdateAsteroidSpawnRate()
+    {
+        if(asteroidSpawnRate.min > 0.25f)
+        {
+            asteroidSpawnRate.min -= 0.1f;
+            asteroidSpawnRate.max -= 0.1f;
+        }
     }
     void Start()
     {

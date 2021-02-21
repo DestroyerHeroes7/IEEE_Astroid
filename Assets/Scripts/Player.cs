@@ -14,13 +14,18 @@ public class Player : MonoBehaviour
     public float timer;
 
     public bool canShoot = true;
+    public bool isDoubleLaser;
 
     private Coroutine shootCoroutine;
 
-    public int damage = 10;
+    public int damage = 1;
     private void Awake()
     {
         Instance = this;
+    }
+    private void Start()
+    {
+
     }
     void Update()
     {
@@ -46,9 +51,51 @@ public class Player : MonoBehaviour
         {
             timer = 0;
             canShoot = false;
-            Instantiate(laserPrefab, transform.position, Quaternion.identity);
+            if(isDoubleLaser)
+            {
+                Instantiate(laserPrefab, transform.position + Vector3.right * 0.1f, Quaternion.identity);
+                Instantiate(laserPrefab, transform.position + Vector3.left * 0.1f , Quaternion.identity);
+            }
+            else
+                Instantiate(laserPrefab, transform.position, Quaternion.identity);
             yield return new WaitForSeconds(fireDelay);
         }
+    }
+    private IEnumerator OnBuffExpired(Global.Buff buff)
+    {
+        yield return new WaitForSeconds(Global.buffLifeTime[buff]);
+        switch (buff)
+        {
+            case Global.Buff.FireRate:
+                fireDelay *= 2;
+                break;
+            case Global.Buff.DoubleLaser:
+                isDoubleLaser = false;
+                break;
+            case Global.Buff.Speed:
+                moveSpeed /= 2;
+                break;
+            case Global.Buff.Shield:
+                break;
+        }
+    }
+    public void OnGetBuff(Global.Buff buff)
+    {
+        switch (buff)
+        {
+            case Global.Buff.FireRate:
+                fireDelay /= 2;
+                break;
+            case Global.Buff.DoubleLaser:
+                isDoubleLaser = true;
+                break;
+            case Global.Buff.Speed:
+                moveSpeed *= 2;
+                break;
+            case Global.Buff.Shield:
+                break;
+        }
+        StartCoroutine(OnBuffExpired(buff));
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

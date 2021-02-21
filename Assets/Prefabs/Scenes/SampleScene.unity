@@ -156,6 +156,10 @@ MonoBehaviour:
   asteroidPrefab: {fileID: 825467041033010795, guid: 6d56fdad812048149910535e59170ad6,
     type: 3}
   spawnPoint: {fileID: 1701911376}
+  asteroidSpawnRate:
+    min: 1.5
+    max: 2
+  rateTimer: 0
 --- !u!4 &210976469
 Transform:
   m_ObjectHideFlags: 0
@@ -686,7 +690,7 @@ MonoBehaviour:
   fireDelay: 0.4
   timer: 0
   canShoot: 1
-  damage: 10
+  damage: 1
 --- !u!212 &1195262339
 SpriteRenderer:
   m_ObjectHideFlags: 0

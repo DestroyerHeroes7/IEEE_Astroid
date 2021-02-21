@@ -11,9 +11,18 @@ public class Asteroid : MonoBehaviour
     public int reward;
     void Start()
     {
+        SelectScale();
+        moveSpeed = 2 - (UtilScript.Remap(hp, 3, 10, 1, 2) - 1);
+        deadDelay = 12f / moveSpeed;
         reward = hp * 10;
         rigidbody.velocity = Vector2.down * moveSpeed;
         Destroy(gameObject, deadDelay);
+    }
+    private void SelectScale()
+    {
+        hp = Random.Range(3, 11);
+        float scale = (float)hp / 10;
+        transform.localScale = new Vector3(scale , scale, 1);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
