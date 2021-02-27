@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     public UIManager uiManager;
     public LevelManager levelManager;
     public GameObject laserPrefab;
+    public GameObject shield;
     public float moveSpeed;
     public float minX;
     public float maxX;
@@ -17,6 +18,7 @@ public class Player : MonoBehaviour
     public bool isDoubleLaser;
 
     private Coroutine shootCoroutine;
+    private Coroutine buffExpiredCoroutine;
 
     public int damage = 1;
     private void Awake()
@@ -76,6 +78,7 @@ public class Player : MonoBehaviour
                 moveSpeed /= 2;
                 break;
             case Global.Buff.Shield:
+                shield.SetActive(false);
                 break;
         }
     }
@@ -93,9 +96,15 @@ public class Player : MonoBehaviour
                 moveSpeed *= 2;
                 break;
             case Global.Buff.Shield:
+                shield.SetActive(true);
                 break;
         }
-        StartCoroutine(OnBuffExpired(buff));
+        buffExpiredCoroutine = StartCoroutine(OnBuffExpired(buff));
+    }
+    public void OnShieldHitByAsteroid()
+    {
+        shield.SetActive(false);
+        StopCoroutine(buffExpiredCoroutine);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

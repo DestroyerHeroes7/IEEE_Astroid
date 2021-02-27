@@ -39,5 +39,10 @@ public class Asteroid : MonoBehaviour
             else
                 rigidbody.velocity = Vector2.down * moveSpeed;
         }
+        if(collision.gameObject.CompareTag("Shield"))
+        {
+            Player.Instance.OnShieldHitByAsteroid();
+            Destroy(gameObject);
+        }
     }
 }

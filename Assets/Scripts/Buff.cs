@@ -16,7 +16,7 @@ public class Buff : MonoBehaviour
     {
         if(other.CompareTag("Laser"))
         {
-            Player.Instance.OnGetBuff(Global.Buff.Speed);
+            Player.Instance.OnGetBuff(GetRandomBuff());
             Destroy(other.gameObject);
             Destroy(gameObject);
         }

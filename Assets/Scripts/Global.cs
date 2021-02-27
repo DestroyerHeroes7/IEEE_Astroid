@@ -28,6 +28,6 @@ public class Global : MonoBehaviour
         [Buff.FireRate] = 10,
         [Buff.DoubleLaser] = 10,
         [Buff.Speed] = 5,
-        [Buff.Shield] = 20
+        [Buff.Shield] = 15
     };
 }

@@ -5,11 +5,11 @@ using UnityEngine;
 public class BuffManager : MonoBehaviour
 {
     public GameObject buffPrefab;
-    public Global.RangeFloat buffSpawnRate = new Global.RangeFloat(5, 10);
+    public Global.RangeFloat buffSpawnRate = new Global.RangeFloat(15f, 30f);
     public Transform spawnPoint;
     private void Start()
     {
-        SpawnBuff();
+        StartCoroutine(SpawnCycle());
     }
     public void SpawnBuff()
     {
@@ -20,6 +20,7 @@ public class BuffManager : MonoBehaviour
         while (true)
         {
             SpawnBuff();
+            Debug.Log("Spawn");
             yield return new WaitForSeconds(Random.Range(buffSpawnRate.min, buffSpawnRate.max));
         }
     }
